@@ -80,7 +80,7 @@ const Vocabulary: FC<PageProps> = ({ params }) => {
 
 
   return (
-    <div className=' '>
+    <div className=' relative'>
       <div className="px-2 sm:px-8 py-4 overflow-x-auto">
         <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
           <table className="min-w-full leading-normal">
@@ -107,13 +107,13 @@ const Vocabulary: FC<PageProps> = ({ params }) => {
             <tbody>
               {vocabList.map((word, index) => (
                 <tr key={index}>
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-[12px] sm:text-sm">
+                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-[12px] sm:text-xl">
                     <p className="text-gray-900 whitespace-no-wrap">{index + 1}</p>
                   </td>
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-[12px] sm:text-sm">
+                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-[12px] sm:text-xl">
                     <p className="text-gray-900 whitespace-no-wrap">{word.wordeng}</p>
                   </td>
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-[12px] sm:text-sm">
+                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-[12px] sm:text-xl">
                     <p className="text-gray-900 whitespace-no-wrap">{word.worduzb}</p>
                   </td>
                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm flex flex-col sm:flex-row items-center gap-2">
@@ -143,7 +143,7 @@ const Vocabulary: FC<PageProps> = ({ params }) => {
         </div>
       </div>
       <div
-        className=" w-full absolute bottom-0 px-5 py-5 bg-white shadow-md flex flex-col xs:flex-row items-center xs:justify-between">
+        className=" w-full absolute -bottom-20 px-5 py-5 bg-white shadow-md flex flex-col xs:flex-row items-center xs:justify-between">
         <div className="inline-flex mt-2 xs:mt-0">
           <button
             className="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-l">

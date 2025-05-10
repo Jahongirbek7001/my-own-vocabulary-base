@@ -43,7 +43,6 @@ const addWord = () => {
 
         setWordEng('');
         setWordUzb('');
-        setUnitId('');
     };
 
     return (

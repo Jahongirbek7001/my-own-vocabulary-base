@@ -46,7 +46,6 @@ const Quiz: FC<PageProps> = ({ params }) => {
         }
 
         const data = await response.json();
-        console.log(data);
         setVocabList(data);
       } catch (error) {
         console.error('There was an error!', error);
@@ -57,7 +56,7 @@ const Quiz: FC<PageProps> = ({ params }) => {
   }, [unitId, modulId]);
   const [currentIndex, setCurrentIndex] = useState(0)
   const [lossCount, setLossCount] = useState(5)
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState(1)
   const [gameState, setGameState] = useState<
     'playing' | 'continue' | 'lose' | 'win' | 'start'
   >('playing')
@@ -77,12 +76,12 @@ const Quiz: FC<PageProps> = ({ params }) => {
     (currentWord: string) => {
       const isLastWord = currentIndex === vocabList.length - 1
       if (!isLastWord) {
-        setProgress(((currentIndex + 1) / vocabList.length) * 100)
-        setCurrentIndex(prev => prev + 1)
         setLossCount(5)
         setGameState('continue')
+        if (progress === 1) {
+          setCurrentIndex(prev => prev + 1);
+        }
       } else {
-        setProgress(100)
         setGameState('win')
       }
     },
@@ -92,14 +91,12 @@ const Quiz: FC<PageProps> = ({ params }) => {
   const handleLoss = useCallback(() => {
     setLossCount(5)
     setCurrentIndex(0)
-    setProgress(0)
     setGameState('lose')
   }, [])
 
   const handleStart = useCallback(() => {
     setLossCount(5)
     setCurrentIndex(0)
-    setProgress(0)
     setGameState('playing')
   }, [])
 
@@ -191,6 +188,7 @@ const Quiz: FC<PageProps> = ({ params }) => {
                 inputSpaces={inputSpaces}
                 handleLetterClick={handleLetterClick}
                 alwaysDisabled={true}
+                buttonColorDisabled={true}
               />
               <div
                 className='w-full absolute bottom-0 px-3 sm::px-0 sm::pb-0 h-24 sm::h-24 
@@ -203,7 +201,9 @@ const Quiz: FC<PageProps> = ({ params }) => {
                 >
                   <button
                     className='w-full md:max-w-28 text-lg cursor-pointer middle none center rounded-lg bg-blue-500 py-3 px-6 font-sans text-[10px] sm:text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none '
-                    onClick={() => setGameState('playing')}
+                    onClick={() => {
+                      setGameState('playing'); setProgress(1);
+                    }}
                   >
                     Continue
                   </button>
@@ -230,8 +230,8 @@ const Quiz: FC<PageProps> = ({ params }) => {
               >
                 <div
                   className='w-full lg:max-w-5xl mx-auto flex flex-col md:flex-row items-center
-											justify-end
-										'
+                  justify-end
+                  '
                 >
                   <button
                     className='w-full md:max-w-28 text-lg cursor-pointer middle none center rounded-lg bg-red-500 py-3 px-6 font-sans text-[10px] sm:text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none '

@@ -6,6 +6,7 @@ interface KeyboardProps {
 	inputSpaces: string[];
 	handleLetterClick: (letter: string) => void;
 	alwaysDisabled?: boolean;
+	buttonColorDisabled?: boolean;
 }
 
 const Keyboard: React.FC<KeyboardProps> = ({
@@ -14,6 +15,7 @@ const Keyboard: React.FC<KeyboardProps> = ({
 	inputSpaces,
 	handleLetterClick,
 	alwaysDisabled = false,
+	buttonColorDisabled = false,
 }) => {
 	const keyboardRows = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM']
 
@@ -40,7 +42,7 @@ const Keyboard: React.FC<KeyboardProps> = ({
 								className={` flex justify-center items-center shadow-md rounded-md px-2 py-2 w-[25px] h-[25px] sm:w-[35px] sm:h-[35px] cursor-pointer border border-gray-300 ${clickedLetters[letter]
 										? currentWord.toUpperCase().includes(letter)
 											? 'bg-green-500 text-white'
-											: 'bg-pink-500 text-white'
+											: buttonColorDisabled === true ? 'bg-green-500 text-white' : 'bg-pink-500 text-white'
 										: ''
 									}`}
 							>
