@@ -5,6 +5,9 @@ import React from 'react'
 import { useEffect, useState } from "react";
 import { FC } from 'react';
 import { useRouter } from 'next/navigation'
+import useTTS from '@/hooks/useTTS'
+
+
 interface PageProps {
   params: Promise<{
     modulId: string;
@@ -25,6 +28,8 @@ const Vocabulary: FC<PageProps> = ({ params }) => {
   const [modulId, setModulId] = useState<string | null>(null)
   const [unitId, setUnitId] = useState<string | null>(null)
   const router = useRouter();
+  const { handleNormalSpeech } = useTTS()
+
 
   useEffect(() => {
     const unwrapParams = async () => {
@@ -111,7 +116,12 @@ const Vocabulary: FC<PageProps> = ({ params }) => {
                     <p className="text-gray-900 whitespace-no-wrap">{index + 1}</p>
                   </td>
                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-[12px] sm:text-xl">
-                    <p className="text-gray-900 whitespace-no-wrap">{word.wordeng}</p>
+                    <button
+                      className=' cursor-pointer'
+                      onClick={evt => handleNormalSpeech(evt, word.wordeng)}
+                    >
+                      <p className="text-gray-900 whitespace-no-wrap">{word.wordeng}</p>
+                    </button>
                   </td>
                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-[12px] sm:text-xl">
                     <p className="text-gray-900 whitespace-no-wrap">{word.worduzb}</p>
