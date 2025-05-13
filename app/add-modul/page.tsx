@@ -43,10 +43,10 @@ const addModul = () => {
     const router = useRouter();
 
     return (
-        <div className="p-4">
-            <h1 className="text-xl font-bold mb-4">So'z qo'shish</h1>
+        <div className="py-10">
+            <h1 className="text-xl text-center font-bold mb-4">So'z qo'shish</h1>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 w-[90%] sm:w-[500px] mx-auto">
 
                 <div>
                     <label className="block">Modul id:</label>

@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
     if (modulId) {
       result = await client.query('SELECT * FROM unit WHERE modulid = $1', [modulId]);
     } else {
-      result = await client.query('SELECT * FROM unit');
+      result = await client.query('SELECT * FROM unit ORDER BY unitId ASC;');
     }
 
     client.release();

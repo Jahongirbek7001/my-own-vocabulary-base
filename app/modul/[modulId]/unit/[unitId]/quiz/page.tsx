@@ -201,18 +201,18 @@ const Quiz: FC<PageProps> = ({ params }) => {
 										bg-green-500/20 flex justify-end items-center'
               >
                 <div
-                  className='w-full lg:max-w-5xl mx-auto flex flex-col md:flex-row items-center
-											justify-between
+                  className='w-full lg:max-w-5xl mx-auto flex items-center
+											justify-between gap-2
 										'
                 >
                   <button
-                    className=' cursor-pointer border-2 shadow-lg border-green-700 p-3 rounded'
+                    className=' cursor-pointer border-2 shadow-lg border-green-700 p-2 sm:p-3 rounded'
                     onClick={evt => handleNormalSpeech(evt, vocabList[currentIndex - 1]?.wordeng)}
                   >
                     <Volume2 className=' w-full text-green-700' aria-hidden='true' />
                   </button>
                   <button
-                    className='w-full md:max-w-28 text-lg cursor-pointer middle none center rounded-lg bg-blue-500 py-3 px-6 font-sans text-[10px] sm:text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none '
+                    className='w-full md:max-w-28 text-lg cursor-pointer middle none center rounded-lg bg-blue-500 border-2 border-blue-400 py-3 px-6 font-sans text-[10px] sm:text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none '
                     onClick={() => {
                       setGameState('playing'); setProgress(1);
                     }}
@@ -246,7 +246,7 @@ const Quiz: FC<PageProps> = ({ params }) => {
                   '
                 >
                   <button
-                    className='w-full md:max-w-28 text-lg cursor-pointer middle none center rounded-lg bg-red-500 py-3 px-6 font-sans text-[10px] sm:text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none '
+                    className='w-full md:max-w-28 text-lg cursor-pointer middle none center rounded-lg bg-red-500 border-2 border-red-400 py-3 px-6 font-sans text-[10px] sm:text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none '
                     onClick={() => setGameState('playing')}
                   >
                     Restart
@@ -269,20 +269,20 @@ const Quiz: FC<PageProps> = ({ params }) => {
 										bg-green-500/20 flex justify-center items-center'>
                 <div className=' w-[90%] sm:w-[70%] flex justify-between items-center gap-1'>
                   <button
+                    className=' cursor-pointer border-2 shadow-lg border-green-700 p-2 sm:p-3 rounded'
+                    onClick={evt => handleNormalSpeech(evt, vocabList[currentIndex]?.wordeng)}
+                  >
+                    <Volume2 className='h-5 w-5 text-green-700' aria-hidden='true' />
+                  </button>
+                  <button
                     onClick={handleStart}
-                    className='w-full md:max-w-[200px] text-lg cursor-pointer middle none center rounded-lg bg-blue-500 py-3 px-6 font-sans text-[10px] sm:text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none '
+                    className='w-full md:max-w-[200px] text-lg cursor-pointer middle none center rounded-lg bg-blue-500 border-2 border-blue-400 py-3 px-3 sm:px-6 font-sans text-[10px] sm:text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none '
                   >
                     Train some more
                   </button>
-                  <button
-                    className=' cursor-pointer'
-                    onClick={evt => handleNormalSpeech(evt, vocabList[currentIndex - 1]?.wordeng)}
-                  >
-                    <Volume2 className='h-5 w-5 text-blue-500' aria-hidden='true' />
-                  </button>
                   <Link href={`/modul/${modulId}`}>
                     <button
-                      className='w-full md:max-w-28 text-lg cursor-pointer middle none center rounded-lg bg-green-500 py-3 px-6 font-sans text-[10px] sm:text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none '
+                      className='w-full md:max-w-28 text-lg cursor-pointer middle none center rounded-lg bg-green-500 border-2 border-green-400 py-3 px-6 font-sans text-[10px] sm:text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none '
                     >
                       Finish
                     </button>

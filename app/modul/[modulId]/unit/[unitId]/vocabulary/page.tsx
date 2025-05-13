@@ -120,11 +120,11 @@ const Vocabulary: FC<PageProps> = ({ params }) => {
                       className=' cursor-pointer'
                       onClick={evt => handleNormalSpeech(evt, word.wordeng)}
                     >
-                      <p className="text-gray-900 whitespace-no-wrap">{word.wordeng}</p>
+                      <p className="text-gray-900 whitespace-no-wrap">{word.wordeng.charAt(0).toUpperCase() + word.wordeng.slice(1)}</p>
                     </button>
                   </td>
                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-[12px] sm:text-xl">
-                    <p className="text-gray-900 whitespace-no-wrap">{word.worduzb}</p>
+                    <p className="text-gray-900 whitespace-no-wrap">{word.worduzb.charAt(0).toUpperCase() + word.worduzb.slice(1)}</p>
                   </td>
                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm flex flex-col sm:flex-row items-center gap-2">
                     <span

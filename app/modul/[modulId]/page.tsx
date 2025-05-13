@@ -62,7 +62,7 @@ const UnitPage = ({ params }: PageProps) => {
         </Link>
       </div>
 
-      <div className="mt-20 mx-10 py-10 grid grid-cols-1 sm:grid-cols-7 gap-3 justify-items-start">
+      <div className="mt-20 mx-10 py-10 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-7 gap-3 justify-items-start">
         {unitList.map((unit) => (
           <Link href={`/modul/${modulId}/unit/${unit.unitid}`} key={unit.unitid}>
             <button className=" cursor-pointer w-[150px] h-[40px] middle none center px-2 rounded-lg border border-blue-500 font-sans text-xs font-bold uppercase text-blue-500 transition-all hover:opacity-75 focus:ring focus:ring-blue-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none truncate">

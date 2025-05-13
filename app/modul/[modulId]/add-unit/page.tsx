@@ -1,13 +1,23 @@
 'use client'
 
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 
-const addUnit = () => {
-    const [unitName, setUnitName] = useState('')
-    const [modulId, setModulId] = useState('')
-    const [message, setMessage] = useState('')
+const AddUnit = () => {
+    const params = useParams();
+    const router = useRouter();
+
+    const [unitName, setUnitName] = useState('');
+    const [modulId, setModulId] = useState('');
+    const [message, setMessage] = useState('');
+
+    useEffect(() => {
+        if (params?.modulId) {
+            setModulId(params.modulId as string);
+        }
+    }, [params]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -38,24 +48,21 @@ const addUnit = () => {
             console.error('There was an error!', error);
         }
 
-        setUnitName('')
-        setModulId('')
+        setUnitName('');
     };
 
-    const router = useRouter();
     return (
-        <div className="p-4">
-            <h1 className="text-xl font-bold mb-4">So'z qo'shish</h1>
+        <div className="py-10">
+            <h1 className="text-xl text-center font-bold mb-4">So'z qo'shish</h1>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 w-[90%] sm:w-[500px] mx-auto">
                 <div>
                     <label className="block">Modul id:</label>
                     <input
-                        type="number"
+                        type="text"
                         value={modulId}
-                        onChange={(e) => setModulId(e.target.value)}
-                        className="border px-4 py-2 w-full"
-                        required
+                        readOnly
+                        className="border px-4 py-2 w-full bg-gray-100 text-gray-600"
                     />
                 </div>
 
@@ -70,11 +77,11 @@ const addUnit = () => {
                     />
                 </div>
 
-                <div className=' mx-auto flex flex-col sm:flex-row justify-center items-center gap-3'>
+                <div className='mx-auto flex flex-col sm:flex-row justify-center items-center gap-3'>
                     <button className="bg-blue-500 cursor-pointer w-full text-white px-4 py-2 rounded">
                         Add
                     </button>
-                    <button onClick={() => router.back()} className="bg-blue-500 cursor-pointer w-full text-white px-4 py-2 rounded">
+                    <button onClick={() => router.back()} type="button" className="bg-blue-500 cursor-pointer w-full text-white px-4 py-2 rounded">
                         Back
                     </button>
                 </div>
@@ -82,7 +89,7 @@ const addUnit = () => {
 
             {message && <p className="mt-4 text-green-600">{message}</p>}
         </div>
-    )
-}
+    );
+};
 
-export default addUnit
+export default AddUnit;
