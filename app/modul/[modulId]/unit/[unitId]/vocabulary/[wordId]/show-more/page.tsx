@@ -12,14 +12,14 @@ type VocabData = {
 };
 
 const ShowMore = ({ params }: PageProps) => {
-  const [wordId, setWordId] = useState<string | null>(null);
+  const [wordid, setWordId] = useState<string | null>(null);
   const [vocab, setVocab] = useState<VocabData[]>([])
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!wordId) return;
+      if (!wordid) return;
       try {
-        const response = await fetch(`/api/show-more?wordId=${wordId}`);
+        const response = await fetch(`/api/show-more?wordid=${wordid}`);
 
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -34,7 +34,7 @@ const ShowMore = ({ params }: PageProps) => {
     };
 
     fetchData();
-  }, [wordId]);
+  }, [wordid]);
 
   useEffect(() => {
     const unwrapParams = async () => {
@@ -45,11 +45,9 @@ const ShowMore = ({ params }: PageProps) => {
   }, [params]);
   return (
     <div>
-      ShowMore {wordId}
+      ShowMore {wordid}
       <div>
-        {vocab.map((e) => (
-          e.wordeng
-        ))}
+         {vocab.length > 0 ? vocab[0].wordeng : 'Yuklanmoqda...'}
       </div>
     </div>
   )

@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 const addModul = () => {
-    const [modulName, setModulName] = useState('')
-    const [modulId, setModulId] = useState('')
+    const [modulname, setModulName] = useState('')
+    const [modulid, setModulId] = useState('')
     const [message, setMessage] = useState('')
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -18,8 +18,8 @@ const addModul = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    modulName,
-                    modulId,
+                    modulname,
+                    modulid,
                 }),
             });
 
@@ -48,7 +48,7 @@ const addModul = () => {
 
             <form onSubmit={handleSubmit} className="space-y-4 w-[90%] sm:w-[500px] mx-auto">
 
-                <div>
+                {/* <div>
                     <label className="block">Modul id:</label>
                     <input
                         type="number"
@@ -57,13 +57,13 @@ const addModul = () => {
                         className="border px-4 py-2 w-full"
                         required
                     />
-                </div>
+                </div> */}
 
                 <div>
                     <label className="block">Modul nomi:</label>
                     <input
                         type="text"
-                        value={modulName}
+                        value={modulname}
                         onChange={(e) => setModulName(e.target.value)}
                         className="border px-4 py-2 w-full"
                         required

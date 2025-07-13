@@ -1,42 +1,37 @@
-import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabaseClient'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
-    const modulId = req.nextUrl.searchParams.get('modulId')
-
-    let query = supabase.from('unit').select('*').order('unitid', { ascending: true })
-
-    if (modulId) {
-      query = query.eq('modulid', modulId)
-    }
-
-    const { data, error } = await query
+    const { data, error } = await supabase
+      .from('users')
+      .select('*')
+      .order('created_at', { ascending: true }) // yoki kerakli ustun bo'yicha
 
     if (error) {
-      console.error(error)
+      console.error('GET error:', error)
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
     return NextResponse.json(data)
   } catch (error) {
-    console.error(error)
+    console.error('Xatolik:', error)
     return new NextResponse('Server Error', { status: 500 })
   }
 }
 
 export async function POST(req: NextRequest) {
-  const { unitname, modulid } = await req.json()
-
   try {
+    const { userId, username, email, password } = await req.json()
+
     const { data, error } = await supabase
-      .from('unit')
-      .insert([{ unitname, modulid }])
+      .from('users')
+      .insert([{ userId, username, email, password }])
       .select()
       .single()
 
     if (error) {
-      console.error(error)
+      console.error('POST error:', error)
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 

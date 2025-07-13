@@ -1,82 +1,79 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { Pool } from 'pg';
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
+import { NextRequest, NextResponse } from 'next/server'
+import { supabase } from '@/lib/supabaseClient'
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const unitId = searchParams.get('unitId');
-  const modulId = searchParams.get('modulId');
+  const { searchParams } = new URL(req.url)
+  const unitid = searchParams.get('unitid')
+  const modulid = searchParams.get('modulid')
 
   try {
-    const client = await pool.connect();
-    const result = await client.query(
-      `SELECT v.* FROM vocabData v 
-      JOIN unit u ON v.unitId = u.unitId
-      WHERE v.unitId = ${unitId}
-      AND u.modulId = ${modulId};`
-    );
-    client.release();
+    if (!unitid || !modulid) {
+      return NextResponse.json({ error: 'unitid yoki modulid yo‘q' }, { status: 400 })
+    }
 
-    return NextResponse.json(result.rows);
+    const { data, error } = await supabase
+      .from('vocabdata')
+      .select('*, unit!inner(modulid)')
+      .eq('unitid', unitid)
+      .eq('unit.modulid', modulid)
+
+    if (error) {
+      console.error('GET error:', error)
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+
+    return NextResponse.json(data)
   } catch (error) {
-    console.error(error);
-    return new NextResponse('Server Error', { status: 500 });
+    console.error(error)
+    return new NextResponse('Server Error', { status: 500 })
   }
 }
 
 export async function POST(req: NextRequest) {
-  const { wordEng, wordUzb, unitId } = await req.json();
+  const { wordeng, worduzb, unitid } = await req.json()
 
   try {
-    const client = await pool.connect();
+    const { data, error } = await supabase
+      .from('vocabdata')
+      .insert([{ wordeng, worduzb, unitid }])
+      .select()
+      .single()
 
-    const query = `
-      INSERT INTO vocabData ( wordEng, wordUzb, unitId)
-      VALUES ('${wordEng}', '${wordUzb}', ${unitId}) RETURNING *;
-    `;
+    if (error) {
+      console.error('POST error:', error)
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
 
-    const result = await client.query(query);
-    client.release();
-
-    return NextResponse.json({ success: true, data: result.rows[0] });
+    return NextResponse.json({ success: true, data })
   } catch (error) {
-    console.error('Serverdagi xato:', error);
-
-    return new NextResponse(JSON.stringify({ error: 'Server Error' }), { status: 500 });
+    console.error('POST catch error:', error)
+    return NextResponse.json({ error: 'Server Error' }, { status: 500 })
   }
 }
 
-export async function DELETE(req: Request) {
+export async function DELETE(req: NextRequest) {
+  const { wordid } = await req.json()
+
+  if (!wordid) {
+    return NextResponse.json({ error: 'wordid yetishmayapti' }, { status: 400 })
+  }
+
   try {
-    const { wordid } = await req.json();
+    const { error, count } = await supabase
+      .from('vocabdata')
+      .delete()
+      .eq('wordid', wordid)
+      .select()
+      .single()
 
-    if (!wordid) {
-      return new Response(JSON.stringify({ error: 'Missing wordid' }), {
-        status: 400,
-      });
+    if (error) {
+      console.error('DELETE error:', error)
+      return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
-    const client = await pool.connect();
-    const result = await client.query('DELETE FROM vocabData WHERE wordId = $1', [wordid]);
-    client.release();
-
-    if (result.rowCount === 0) {
-      return new Response(JSON.stringify({ message: 'No word found to delete' }), {
-        status: 404,
-      });
-    }
-
-    return new Response(JSON.stringify({ message: 'Deleted successfully' }), {
-      status: 200,
-    });
-
+    return NextResponse.json({ message: 'Deleted successfully' })
   } catch (error) {
-    console.error('DELETE error:', error);
-    return new Response(JSON.stringify({ error: 'Failed to delete' }), {
-      status: 500,
-    });
+    console.error('DELETE catch error:', error)
+    return NextResponse.json({ error: 'Failed to delete' }, { status: 500 })
   }
 }

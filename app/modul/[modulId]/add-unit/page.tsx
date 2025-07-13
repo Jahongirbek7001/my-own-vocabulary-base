@@ -9,8 +9,8 @@ const AddUnit = () => {
     const params = useParams();
     const router = useRouter();
 
-    const [unitName, setUnitName] = useState('');
-    const [modulId, setModulId] = useState('');
+    const [unitname, setUnitName] = useState('');
+    const [modulid, setModulId] = useState('');
     const [message, setMessage] = useState('');
 
     useEffect(() => {
@@ -29,8 +29,8 @@ const AddUnit = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    unitName,
-                    modulId,
+                    unitname,
+                    modulid,
                 }),
             });
 
@@ -60,7 +60,7 @@ const AddUnit = () => {
                     <label className="block">Modul id:</label>
                     <input
                         type="text"
-                        value={modulId}
+                        value={modulid}
                         readOnly
                         className="border px-4 py-2 w-full bg-gray-100 text-gray-600"
                     />
@@ -70,7 +70,7 @@ const AddUnit = () => {
                     <label className="block">Unit nomi:</label>
                     <input
                         type="text"
-                        value={unitName}
+                        value={unitname}
                         onChange={(e) => setUnitName(e.target.value)}
                         className="border px-4 py-2 w-full"
                         required

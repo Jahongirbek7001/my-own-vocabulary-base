@@ -7,9 +7,9 @@ const AddWord = () => {
     const params = useParams();
     const router = useRouter();
 
-    const [unitId, setUnitId] = useState('');
-    const [wordEng, setWordEng] = useState('');
-    const [wordUzb, setWordUzb] = useState('');
+    const [unitid, setUnitId] = useState('');
+    const [wordeng, setWordEng] = useState('');
+    const [worduzb, setWordUzb] = useState('');
     const [message, setMessage] = useState('');
 
     useEffect(() => {
@@ -28,9 +28,9 @@ const AddWord = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    wordEng,
-                    wordUzb,
-                    unitId,
+                    wordeng,
+                    worduzb,
+                    unitid,
                 }),
             });
 
@@ -63,7 +63,7 @@ const AddWord = () => {
                     <label className="block">Unit ID:</label>
                     <input
                         type="text"
-                        value={unitId}
+                        value={unitid}
                         readOnly
                         className="border px-4 py-2 w-full bg-gray-100 text-gray-600"
                     />
@@ -73,7 +73,7 @@ const AddWord = () => {
                     <label className="block">Inglizcha so'z:</label>
                     <input
                         type="text"
-                        value={wordEng}
+                        value={wordeng}
                         onChange={(e) => setWordEng(e.target.value)}
                         className="border px-4 py-2 w-full"
                         required
@@ -84,7 +84,7 @@ const AddWord = () => {
                     <label className="block">O'zbekcha so'z:</label>
                     <input
                         type="text"
-                        value={wordUzb}
+                        value={worduzb}
                         onChange={(e) => setWordUzb(e.target.value)}
                         className="border px-4 py-2 w-full"
                         required

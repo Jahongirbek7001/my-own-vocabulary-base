@@ -44,7 +44,7 @@ const Vocabulary: FC<PageProps> = ({ params }) => {
     const fetchData = async () => {
       if (!unitId || !modulId) return;
       try {
-        const response = await fetch(`/api/vocab?unitId=${unitId}&modulId=${modulId}`);
+        const response = await fetch(`/api/vocab?unitid=${unitId}&modulid=${modulId}`);
 
         if (!response.ok) {
           throw new Error('Network response was not ok');

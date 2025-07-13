@@ -26,8 +26,8 @@ type VocabData = {
 
 const Quiz: FC<PageProps> = ({ params }) => {
   const [vocabList, setVocabList] = useState<VocabData[]>([])
-  const [modulId, setModulId] = useState<string | null>(null)
-  const [unitId, setUnitId] = useState<string | null>(null)
+  const [modulid, setModulId] = useState<string | null>(null)
+  const [unitid, setUnitId] = useState<string | null>(null)
   const router = useRouter();
   const { handleNormalSpeech } = useTTS()
 
@@ -43,9 +43,9 @@ const Quiz: FC<PageProps> = ({ params }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!unitId || !modulId) return;
+      if (!unitid || !modulid) return;
       try {
-        const response = await fetch(`/api/vocab?unitId=${unitId}&modulId=${modulId}`);
+        const response = await fetch(`/api/vocab?unitid=${unitid}&modulid=${modulid}`);
 
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -59,7 +59,7 @@ const Quiz: FC<PageProps> = ({ params }) => {
     };
 
     fetchData();
-  }, [unitId, modulId]);
+  }, [unitid, modulid]);
   const [currentIndex, setCurrentIndex] = useState(0)
   const [lossCount, setLossCount] = useState(5)
   const [progress, setProgress] = useState(1)
@@ -280,7 +280,7 @@ const Quiz: FC<PageProps> = ({ params }) => {
                   >
                     Train some more
                   </button>
-                  <Link href={`/modul/${modulId}`}>
+                  <Link href={`/modul/${modulid}`}>
                     <button
                       className='w-full md:max-w-28 text-lg cursor-pointer middle none center rounded-lg bg-green-500 border-2 border-green-400 py-3 px-6 font-sans text-[10px] sm:text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none '
                     >

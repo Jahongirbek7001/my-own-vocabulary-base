@@ -1,24 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Pool } from 'pg';
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
+import { supabase } from '@/lib/supabaseClient'
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const wordId = searchParams.get('wordId');
+  const wordid = searchParams.get('wordId');
 
-  try {
-    const client = await pool.connect();
-    const result = await client.query(
-      `SELECT wordEng from vocabData WHERE wordID = ${wordId}`
-    );
-    client.release();
-
-    return NextResponse.json(result.rows);
-  } catch (error) {
-    console.error(error);
-    return new NextResponse('Server Error', { status: 500 });
+  if (!wordid) {
+    return NextResponse.json({ error: 'wordId is required' }, { status: 400 });
   }
+
+  const { data, error } = await supabase
+    .from('vocabdata')
+    .select('wordeng')
+    .eq('wordid', wordid)
+    .single();
+
+  if (error) {
+    console.error('Supabase error:', error.message);
+    return NextResponse.json({ error: 'Failed to fetch word' }, { status: 500 });
+  }
+
+  return NextResponse.json(data);
 }
